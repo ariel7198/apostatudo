@@ -38,5 +38,21 @@ export const useApi = () => {
     }
   };
 
-  return { get, post, del };
+  const put = async <T>(url: string, body: any): Promise<T> => {
+    const res = await fetch(`${baseUrl}${url}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+      throw new Error("Erro na requisição");
+    } 
+
+    return res.json();
+  };
+
+  return { get, post, del, put };
 };
