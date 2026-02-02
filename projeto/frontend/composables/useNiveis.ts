@@ -15,6 +15,10 @@ export const useNiveis = () => {
     return api.del(`/niveis/${id}`);
   }
 
+  const update = (id: number, data: { nivel: string }) => {
+    return api.put<Nivel>(`/niveis/${id}`, data);
+  }
 
-  return { list, create, del };
+
+  return { list, create, del, update };
 };
