@@ -8,6 +8,14 @@ const { list, del } = useNiveis();
 const niveis = ref<Nivel[]>([]);
 const loading = ref(false);
 
+const nivelSelecionado = ref<Nivel | null>(null);
+const modalEditAberto = ref(false);
+
+const editarNivel = (nivel: Nivel) => {
+  nivelSelecionado.value = { ...nivel };
+  modalEditAberto.value = true;
+};
+
 const carregar = async () => {
   loading.value = true;
   niveis.value = await list();
@@ -29,7 +37,8 @@ onMounted(carregar);
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="p-6">
+    <h1 class="text-2xl font-bold">Niveis</h1>
     <ul class="space-y-2">
       <li
         v-for="nivel in niveis"
@@ -38,16 +47,31 @@ onMounted(carregar);
       >
         <span>{{ nivel.nivel }}</span>
 
-        <button
-          class="text-red-600 hover:underline"
-          @click="remover(nivel.id)"
-        >
-          Excluir
-        </button>
+        <div class="flex gap-3">
+          <button
+            class="text-sm px-3 py-1 border rounded hover:bg-gray-100"
+            @click="editarNivel(nivel)"
+          >
+            Editar
+          </button>
+
+          <button
+            class="text-sm px-3 py-1 border rounded border border-red-500 text-red-500 hover:bg-red-600 hover:text-white"
+            @click="remover(nivel.id)"
+          >
+            Excluir
+          </button>
+        </div>
       </li>
     </ul>
 
-    <NivelForm @created="carregar"/>
+    <NivelForm @created="carregar" />
+
+    <NivelEditModal
+      v-model="modalEditAberto"
+      :nivel="nivelSelecionado"
+      @saved="carregar"
+    />
 
     <p v-if="loading">Carregando...</p>
   </div>
