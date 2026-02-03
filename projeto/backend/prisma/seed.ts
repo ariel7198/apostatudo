@@ -8,47 +8,63 @@ async function main() {
   await prisma.profissional.deleteMany()
   await prisma.nivel.deleteMany()
 
-  // criar os niveis
-  const junior = await prisma.nivel.create({
-    data: { nivel: 'Júnior' },
+
+  // NÍVEIS (20)
+  const niveis = await Promise.all(
+    Array.from({ length: 20 }).map((_, i) =>
+      prisma.nivel.create({
+        data: {
+          nivel: `Nível ${i + 1}`,
+        },
+      })
+    )
+  )
+
+
+  // PROFISSIONAIS (40)
+  const nomes = [
+    'João', 'Maria', 'Carlos', 'Ana', 'Pedro',
+    'Lucas', 'Fernanda', 'Rafael', 'Juliana', 'Bruno',
+  ]
+
+  const sobrenomes = [
+    'Silva', 'Souza', 'Oliveira', 'Lima', 'Pereira',
+    'Costa', 'Rodrigues', 'Alves', 'Gomes', 'Ribeiro',
+  ]
+
+  const hobbies = [
+    'Leitura',
+    'Corrida',
+    'Fotografia',
+    'Cozinhar',
+    'Música',
+    'Viajar',
+    'Academia',
+    'Jogos',
+  ]
+
+  const profissionais = Array.from({ length: 40 }).map((_, i) => {
+    const nome =
+      `${nomes[i % nomes.length]} ${sobrenomes[i % sobrenomes.length]}`
+
+    return {
+      nome,
+      sexo: i % 2 === 0 ? 'M' : 'F',
+      data_nascimento: new Date(
+        1985 + (i % 15), // anos variados
+        i % 12,
+        (i % 28) + 1
+      ),
+      hobby: hobbies[i % hobbies.length] ?? 'Sem hobby',
+      nivelId: niveis[i % niveis.length]!.id,
+    }
   })
 
-  const pleno = await prisma.nivel.create({
-    data: { nivel: 'Pleno' },
-  })
-
-  const senior = await prisma.nivel.create({
-    data: { nivel: 'Sênior' },
-  })
-
-  // cria alguns profissionais de exemplo
   await prisma.profissional.createMany({
-    data: [
-      {
-        nome: 'João Silva',
-        sexo: 'M',
-        data_nascimento: new Date('1995-05-10'),
-        hobby: 'Correr',
-        nivelId: junior.id,
-      },
-      {
-        nome: 'Maria Souza',
-        sexo: 'F',
-        data_nascimento: new Date('1990-09-20'),
-        hobby: 'Leitura',
-        nivelId: pleno.id,
-      },
-      {
-        nome: 'Carlos Lima',
-        sexo: 'M',
-        data_nascimento: new Date('1988-01-15'),
-        hobby: 'Fotografia',
-        nivelId: senior.id,
-      },
-    ],
+    data: profissionais,
   })
 
-  console.log('Seed finalizado com sucesso')
+  console.log('Seed finalizado com sucesso 🚀')
 }
 
 main()
