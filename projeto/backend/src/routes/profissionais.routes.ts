@@ -76,12 +76,12 @@ router.post("/", async (req: Request, res: Response) => {
   res.status(201).json(response);
 });
 
-// PUT /api/profissionais/:id
-router.put("/:id", async (req: Request, res: Response) => {
+// PATCH /api/profissionais/:id
+router.patch("/:id", async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const data: UpdateProfissionalDTO = req.body;
 
-  if (!id) {
+  if (Number.isNaN(id)) {
     return res.status(400).json({ message: "ID inválido" });
   }
 
@@ -135,7 +135,7 @@ router.put("/:id", async (req: Request, res: Response) => {
 router.delete("/:id", async (req: Request, res: Response) => {
   const id = Number(req.params.id);
 
-  if (!id) {
+  if (Number.isNaN(id)) {
     return res.status(400).json({ message: "ID inválido" });
   }
 
