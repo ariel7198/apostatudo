@@ -23,7 +23,7 @@ export const useProfissionais = () => {
   }
 
   const updateNivel = (id: number, nivelId: number) => {
-    return api.put(`/profissionais/${id}`, { nivelId });
+    return api.patch(`/profissionais/${id}`, { nivelId });
   }
 
   const updateProfissional = (id: number, data: {
@@ -32,7 +32,7 @@ export const useProfissionais = () => {
     data_nascimento: string;
     hobby: string;
   }) => {
-    return api.put<Profissional>(`/profissionais/${id}`, data);
+    return api.patch<Profissional>(`/profissionais/${id}`, data);
   } ;
 
   return { list, create, updateNivel, updateProfissional, del };

@@ -38,9 +38,9 @@ export const useApi = () => {
     }
   };
 
-  const put = async <T>(url: string, body: any): Promise<T> => {
+  const patch = async <T>(url: string, body: any): Promise<T> => {
     const res = await fetch(`${baseUrl}${url}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -54,5 +54,5 @@ export const useApi = () => {
     return res.json();
   };
 
-  return { get, post, del, put };
+  return { get, post, del, patch };
 };

@@ -16,7 +16,7 @@ export const useNiveis = () => {
   }
 
   const update = (id: number, data: { nivel: string }) => {
-    return api.put<Nivel>(`/niveis/${id}`, data);
+    return api.patch<Nivel>(`/niveis/${id}`, data);
   }
 
 
