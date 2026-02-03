@@ -14,20 +14,19 @@ const close = () => emit("update:modelValue", false);
   <Teleport to="body">
     <div
       v-if="modelValue"
-      class="fixed inset-0 z-50 flex items-center justify-center"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+      @click.self="close"
     >
-      <!-- overlay -->
-      <div class="absolute inset-0 bg-black/50" @click="close" />
-
-      <!-- modal -->
       <div
-        class="relative bg-white rounded-lg shadow-lg w-full max-w-lg p-6 z-10"
+        class="bg-white rounded-lg shadow-lg w-full max-w-lg mx-4 p-6"
       >
+        <!-- conteúdo -->
         <slot />
 
+        <!-- ações -->
         <div class="mt-6 flex justify-end gap-2">
           <button
-            class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
+            class="px-4 py-2 text-sm rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
             @click="close"
           >
             Cancelar
