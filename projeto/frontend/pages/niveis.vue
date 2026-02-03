@@ -37,42 +37,49 @@ onMounted(carregar);
 </script>
 
 <template>
-  <div class="p-6">
-    <h1 class="text-2xl font-bold">Niveis</h1>
-    <ul class="space-y-2">
-      <li
+  <div class="p-6 space-y-6">
+    <div class="flex items-center justify-between">
+      <h1 class="text-2xl font-bold text-gray-900">Níveis</h1>
+    </div>
+
+    <NivelForm @created="carregar" />
+
+    <p v-if="loading" class="text-center text-gray-600">Carregando...</p>
+
+    <div v-else class="grid grid-cols-1 gap-4">
+      <div
         v-for="nivel in niveis"
         :key="nivel.id"
-        class="flex justify-between items-center bg-gray-100 p-3 rounded"
+        class="bg-white border border-gray-200 rounded p-4 flex justify-between items-center shadow-sm"
       >
-        <span>{{ nivel.nivel }}</span>
+        <span class="font-medium text-lg text-gray-900">
+          {{ nivel.nivel }}
+        </span>
 
-        <div class="flex gap-3">
+        <div class="flex gap-2">
           <button
-            class="text-sm px-3 py-1 border rounded hover:bg-gray-100"
+            class="px-3 py-1 text-sm rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
             @click="editarNivel(nivel)"
           >
             Editar
           </button>
 
           <button
-            class="text-sm px-3 py-1 border rounded border border-red-500 text-red-500 hover:bg-red-600 hover:text-white"
+            class="px-3 py-1 text-sm rounded bg-red-600 hover:bg-red-700 text-white transition"
             @click="remover(nivel.id)"
           >
             Excluir
           </button>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
+    
 
-    <NivelForm @created="carregar" />
-
+    <!-- modal de edição -->
     <NivelEditModal
       v-model="modalEditAberto"
       :nivel="nivelSelecionado"
       @saved="carregar"
     />
-
-    <p v-if="loading">Carregando...</p>
   </div>
 </template>
