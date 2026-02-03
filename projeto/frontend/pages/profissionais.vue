@@ -14,6 +14,14 @@ const profissionalSelecionado = ref<Profissional | null>(null);
 const modalEditAberto = ref(false);
 const modalCreateAberto = ref(false);
 
+const formatarData = (data: string) => {
+  if (!data) return "";
+
+  return new Date(data).toLocaleDateString("pt-BR", {
+    timeZone: "UTC",
+  });
+};
+
 const editarProfissional = (profissional: Profissional) => {
   profissionalSelecionado.value = { ...profissional };
   modalEditAberto.value = true;
@@ -73,16 +81,15 @@ onMounted(async () => {
   await carregar();
   niveis.value = await listNiveis();
 });
-
 </script>
 
 <template>
   <div class="p-6">
     <div class="flex items-center justify-between mb-4">
-      <h1 class="text-2xl font-bold">Profissionais</h1>
+      <h1 class="text-2xl font-bold text-gray-900">Profissionais</h1>
 
       <button
-        class="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700"
+        class="bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700 transition"
         @click="modalCreateAberto = true"
       >
         + Novo profissional
@@ -91,46 +98,64 @@ onMounted(async () => {
     <p v-if="loading">Carregando...</p>
     <p v-else-if="error">Erro ao carregar profissionais</p>
 
-    <ul v-else class="space-y-2">
-      <li
-        v-for="profissional in profissionais"
-        :key="profissional.id"
-        class="p-2 border rounded flex items-center gap-2"
+    <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div
+        v-for="p in profissionais"
+        :key="p.id"
+        class="bg-white border border-gray-200 rounded-lg p-4 space-y-3 shadow-sm"
       >
-        <span class="flex-1">
-          {{ profissional.nome }} - {{ profissional.sexo }} -
-          {{ profissional.data_nascimento }} - {{ profissional.hobby }}
-        </span>
+        <!-- Header -->
+        <div class="flex justify-between items-start">
+          <div>
+            <h2 class="text-lg font-semibold">
+              {{ p.nome }}
+            </h2>
+            <p class="text-sm text-gray-50000">
+              {{ p.sexo === "M" ? "Masculino" : "Feminino" }} •
+              {{ formatarData(p.data_nascimento) }}
+            </p>
+          </div>
 
-        <select
-          class="border rounded px-2 py-1"
-          :class="{
-            'opacity-50': status[profissional.id] === 'loading',
-            'border-emerald-500': status[profissional.id] === 'success',
-            'border-red-500': status[profissional.id] === 'error',
-          }"
-          :disabled="status[profissional.id] === 'loading'"
-          :value="profissional.nivel?.id"
-          @change="alterarNivel(profissional, $event)"
-        >
-          <option v-for="nivel in niveis" :key="nivel.id" :value="nivel.id">
-            {{ nivel.nivel }}
-          </option>
-        </select>
-        <button
-          class="text-sm px-3 py-1 border rounded hover:bg-gray-100"
-          @click="editarProfissional(profissional)"
-        >
-          Editar
-        </button>
-        <button
-          class="text-sm px-3 py-1 border rounded border border-red-500 text-red-500 hover:bg-red-600 hover:text-white"
-          @click="remover(profissional.id)"
-        >
-          Excluir
-        </button>
-      </li>
-    </ul>
+          <select
+            class="bg-white border border-gray-300 rounded px-2 py-1 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            :class="{
+              'opacity-50 cursor-not-allowed': status[p.id] === 'loading',
+              'border-emerald-500': status[p.id] === 'success',
+            }"
+            :disabled="status[p.id] === 'loading'"
+            :value="p.nivel?.id"
+            @change="alterarNivel(p, $event)"
+          >
+            <option v-for="nivel in niveis" :key="nivel.id" :value="nivel.id">
+              {{ nivel.nivel }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Body -->
+        <div class="text-sm ">
+          <span class="font-medium ">Hobby:</span>
+          {{ p.hobby }}
+        </div>
+
+        <!-- Actions -->
+        <div class="flex justify-end gap-2 pt-2">
+          <button
+            class="px-3 py-1 text-sm rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+            @click="editarProfissional(p)"
+          >
+            Editar
+          </button>
+
+          <button
+            class="px-3 py-1 text-sm rounded bg-red-600 hover:bg-red-700 text-white transition"
+            @click="remover(p.id)"
+          >
+            Excluir
+          </button>
+        </div>
+      </div>
+    </div>
 
     <ProfissionalEditModal
       v-model="modalEditAberto"
