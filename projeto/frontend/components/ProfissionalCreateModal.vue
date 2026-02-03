@@ -64,7 +64,7 @@ const salvar = async () => {
     emit("created");
     emit("update:modelValue", false);
   } catch {
-    error.value = "Erro ao cadastrar profissional";
+    error.value = "Erro ao cadastrar profissional, verifique os dados";
   } finally {
     loading.value = false;
   }
@@ -118,7 +118,6 @@ const salvar = async () => {
         class="w-full border rounded px-3 py-2"
         required
       >
-        <option value="" disabled>Selecione o nível</option>
         <option v-for="nivel in niveis" :key="nivel.id" :value="nivel.id">
           {{ nivel.nivel }}
         </option>

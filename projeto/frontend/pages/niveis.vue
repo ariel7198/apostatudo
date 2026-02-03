@@ -2,6 +2,7 @@
 import { onMounted, ref } from "vue";
 import type { Nivel } from "~/types/nivel";
 import { useNiveis } from "~/composables/useNiveis";
+import { Pencil, Trash } from "lucide-vue-next";
 
 const { list, del } = useNiveis();
 
@@ -58,22 +59,23 @@ onMounted(carregar);
 
         <div class="flex gap-2">
           <button
-            class="px-3 py-1 text-sm rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+            class="flex items-center gap-2 px-3 py-1 text-sm rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
             @click="editarNivel(nivel)"
           >
-            Editar
+          Editar
+          <Pencil class="h-4 w-4" />
           </button>
 
           <button
-            class="px-3 py-1 text-sm rounded bg-red-600 hover:bg-red-700 text-white transition"
+            class="flex items-center gap-2 px-3 py-1 text-sm rounded bg-red-600 hover:bg-red-700 text-white transition"
             @click="remover(nivel.id)"
           >
-            Excluir
+          Excluir
+          <Trash class="h-4 w-4" />
           </button>
         </div>
       </div>
     </div>
-    
 
     <!-- modal de edição -->
     <NivelEditModal

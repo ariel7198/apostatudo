@@ -3,6 +3,7 @@ import { useProfissionais } from "~/composables/useProfissionais";
 import type { Profissional } from "~/types/profissional";
 import { useNiveis } from "~/composables/useNiveis";
 import type { Nivel } from "~/types/nivel";
+import { Pencil, Trash, UserPlus } from "lucide-vue-next";
 
 const { list, del } = useProfissionais();
 const { list: listNiveis } = useNiveis();
@@ -89,10 +90,11 @@ onMounted(async () => {
       <h1 class="text-2xl font-bold text-gray-900">Profissionais</h1>
 
       <button
-        class="bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700 transition"
+        class="flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700 transition"
         @click="modalCreateAberto = true"
       >
-        + Novo profissional
+      <UserPlus class="h-4 w-4" />
+        Cadastrar
       </button>
     </div>
     <p v-if="loading">Carregando...</p>
@@ -141,17 +143,19 @@ onMounted(async () => {
         <!-- Actions -->
         <div class="flex justify-end gap-2 pt-2">
           <button
-            class="px-3 py-1 text-sm rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+            class="flex items-center gap-2  px-3 py-1 text-sm rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
             @click="editarProfissional(p)"
           >
-            Editar
+          Editar
+          <Pencil class="h-4 w-4" />
           </button>
 
           <button
-            class="px-3 py-1 text-sm rounded bg-red-600 hover:bg-red-700 text-white transition"
+            class="flex items-center gap-2  px-3 py-1 text-sm rounded bg-red-600 hover:bg-red-700 text-white transition"
             @click="remover(p.id)"
           >
-            Excluir
+          Excluir
+          <Trash class="h-4 w-4" />
           </button>
         </div>
       </div>
