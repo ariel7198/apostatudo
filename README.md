@@ -86,7 +86,6 @@ Crie um arquivo chamado `.env` na raiz do diretório `backend` com o seguinte co
 
 ```env
 DATABASE_URL="postgresql://usuario:senha@localhost:5432/nome_do_banco"
-PORT=3333
 ```
 
 Substitua:
