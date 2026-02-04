@@ -93,14 +93,17 @@ onMounted(async () => {
         class="flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700 transition"
         @click="modalCreateAberto = true"
       >
-      <UserPlus class="h-4 w-4" />
+        <UserPlus class="h-4 w-4" />
         Cadastrar
       </button>
     </div>
-    <p v-if="loading">Carregando...</p>
-    <p v-else-if="error">Erro ao carregar profissionais</p>
+    <p v-if="error" class="text-red-600 text-center">
+      {{ error }}
+    </p>
 
-    <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <SkeletonsProfissionalSkeleton v-else-if="loading" />
+
+    <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-4 min-w-sm">
       <div
         v-for="p in profissionais"
         :key="p.id"
@@ -112,7 +115,7 @@ onMounted(async () => {
             <h2 class="text-lg font-semibold">
               {{ p.nome }}
             </h2>
-            <p class="text-sm text-gray-50000">
+            <p class="text-sm text-gray-500">
               {{ p.sexo === "M" ? "Masculino" : "Feminino" }} •
               {{ formatarData(p.data_nascimento) }}
             </p>
@@ -133,29 +136,28 @@ onMounted(async () => {
             </option>
           </select>
         </div>
-
-        <!-- Body -->
-        <div class="text-sm ">
-          <span class="font-medium ">Hobby:</span>
+        
+        <div class="text-sm">
+          <span class="font-medium">Hobby:</span>
           {{ p.hobby }}
         </div>
 
-        <!-- Actions -->
+
         <div class="flex justify-end gap-2 pt-2">
           <button
-            class="flex items-center gap-2  px-3 py-1 text-sm rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+            class="flex items-center gap-2 px-3 py-1 text-sm rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
             @click="editarProfissional(p)"
           >
-          Editar
-          <Pencil class="h-4 w-4" />
+            Editar
+            <Pencil class="h-4 w-4" />
           </button>
 
           <button
-            class="flex items-center gap-2  px-3 py-1 text-sm rounded bg-red-600 hover:bg-red-700 text-white transition"
+            class="flex items-center gap-2 px-3 py-1 text-sm rounded bg-red-600 hover:bg-red-700 text-white transition"
             @click="remover(p.id)"
           >
-          Excluir
-          <Trash class="h-4 w-4" />
+            Excluir
+            <Trash class="h-4 w-4" />
           </button>
         </div>
       </div>

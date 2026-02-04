@@ -45,7 +45,7 @@ onMounted(carregar);
 
     <NivelForm @created="carregar" />
 
-    <p v-if="loading" class="text-center text-gray-600">Carregando...</p>
+    <SkeletonsNivelSkeleton v-if="loading" />
 
     <div v-else class="grid grid-cols-1 gap-4">
       <div
@@ -62,16 +62,16 @@ onMounted(carregar);
             class="flex items-center gap-2 px-3 py-1 text-sm rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
             @click="editarNivel(nivel)"
           >
-          Editar
-          <Pencil class="h-4 w-4" />
+            Editar
+            <Pencil class="h-4 w-4" />
           </button>
 
           <button
             class="flex items-center gap-2 px-3 py-1 text-sm rounded bg-red-600 hover:bg-red-700 text-white transition"
             @click="remover(nivel.id)"
           >
-          Excluir
-          <Trash class="h-4 w-4" />
+            Excluir
+            <Trash class="h-4 w-4" />
           </button>
         </div>
       </div>
