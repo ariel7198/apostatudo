@@ -38,9 +38,9 @@ A solução contém:
 
 ## Estrutura do projeto
 
-O projeto está organizado em um único repositório (monorepo):
+- O projeto está organizado em um único repositório (monorepo):
+- O frontend consome o backend através de uma API REST.
 
-O frontend consome o backend através de uma API REST.
 ---
 
 ## Backend — API REST
@@ -83,6 +83,10 @@ A navegação utiliza páginas e modais, com feedback visual e estados de carreg
 ### Backend
 
 Acesse a pasta do backend:
+
+```
+cd backend
+```
 
 ## Deploy
 
