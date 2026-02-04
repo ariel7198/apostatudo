@@ -6,7 +6,7 @@ A aplicação entrega uma solução completa **fullstack**, composta por backend
 
 Você pode conferir o projeto no ar no seguinte endereço 
 
-[apostatudo.vercel.app] (apostatudo.vercel.app)
+[apostatudo.vercel.app](apostatudo.vercel.app)
 
 ---
 
