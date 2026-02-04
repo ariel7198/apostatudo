@@ -84,7 +84,7 @@ A navegação utiliza páginas e modais, com feedback visual e estados de carreg
 
 Acesse a pasta do backend:
 
-## 🌐 Deploy
+## Deploy
 
 ### Backend
 - Deploy realizado no Railway
