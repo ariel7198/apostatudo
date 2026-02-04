@@ -82,6 +82,19 @@ A navegação utiliza páginas e modais, com feedback visual e estados de carreg
 
 ### Backend
 
+Crie um arquivo chamado `.env` na raiz do diretório `backend` com o seguinte conteúdo:
+
+```env
+DATABASE_URL="postgresql://usuario:senha@localhost:5432/nome_do_banco"
+PORT=3333
+```
+
+Substitua:
+
+- usuario pelo usuário do PostgreSQL
+- senha pela senha do PostgreSQL
+- nome_do_banco pelo nome do banco de dados
+
 Acesse a pasta do backend:
 
 ```
@@ -117,6 +130,34 @@ A API ficará disponível em:
 ```
 http://localhost:3333/api
 ```
+
+### Frontend
+
+Crie um arquivo chamado .env na raiz do diretório frontend com o seguinte conteúdo:
+```
+NUXT_PUBLIC_API_BASE_URL=http://localhost:3333/api
+```
+
+Acesse a pasta do frontend:
+```
+cd frontend
+```
+
+Instale as dependências:
+```
+npm install
+```
+
+Inicie o servidor de desenvolvimento:
+```
+npm run dev
+```
+
+A aplicação estará disponível em:
+```
+http://localhost:3000
+```
+
 ## Deploy
 
 ### Backend
