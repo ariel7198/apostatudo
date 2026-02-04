@@ -3,7 +3,11 @@ import { useProfissionais } from "~/composables/useProfissionais";
 import type { Profissional } from "~/types/profissional";
 import { useNiveis } from "~/composables/useNiveis";
 import type { Nivel } from "~/types/nivel";
-import { Pencil, Trash, UserPlus } from "lucide-vue-next";
+import { UserX, Pencil, Trash, UserPlus } from "lucide-vue-next";
+
+useHead({
+  title: "Profissionais",
+});
 
 const { list, del } = useProfissionais();
 const { list: listNiveis } = useNiveis();
@@ -49,7 +53,7 @@ const alterarNivel = async (profissional: Profissional, event: Event) => {
 };
 
 const remover = async (id: number) => {
-  if (!confirm("Deseja realmente excluir este nível?")) return;
+  if (!confirm("Deseja realmente excluir este profissional?")) return;
 
   try {
     await del(id);
@@ -103,6 +107,20 @@ onMounted(async () => {
 
     <SkeletonsProfissionalSkeleton v-else-if="loading" />
 
+    <div v-if="!loading && profissionais.length === 0" class="flex flex-col gap-4 w-full h-64 p-8 text-center items-center justify-center text-gray-500 border rounded bg-white">
+      <UserX class="h-12 w-12" />
+      <span class="text-lg font-bold"> Nenhum profissional cadastrado. </span>  
+      <span> Comece adicionando um novo profissional. </span>
+      <button
+        class="flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700 transition"
+        @click="modalCreateAberto = true"
+      >
+        <UserPlus class="h-4 w-4" />
+        Cadastrar
+      </button>
+      
+    </div>
+
     <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-4 min-w-sm">
       <div
         v-for="p in profissionais"
@@ -136,12 +154,11 @@ onMounted(async () => {
             </option>
           </select>
         </div>
-        
+
         <div class="text-sm">
           <span class="font-medium">Hobby:</span>
           {{ p.hobby }}
         </div>
-
 
         <div class="flex justify-end gap-2 pt-2">
           <button

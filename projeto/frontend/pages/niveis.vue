@@ -2,7 +2,11 @@
 import { onMounted, ref } from "vue";
 import type { Nivel } from "~/types/nivel";
 import { useNiveis } from "~/composables/useNiveis";
-import { Pencil, Trash } from "lucide-vue-next";
+import { CornerRightUp, Pencil, Trash } from "lucide-vue-next";
+
+useHead({
+  title: "Niveis",
+});
 
 const { list, del } = useNiveis();
 
@@ -46,6 +50,17 @@ onMounted(carregar);
     <NivelForm @created="carregar" />
 
     <SkeletonsNivelSkeleton v-if="loading" />
+
+    <div
+      v-if="!loading && niveis.length === 0"
+      class="flex flex-row gap-4  h-64 p-8 text-start items-center justify-center text-gray-500 border rounded bg-white"
+    >
+      <div class="flex flex-col">
+        <span class="text-lg font-bold"> Nenhum nivel cadastrado. </span>
+        <span> Use o campo acima para adicionar um novo nível. </span>
+      </div>
+      <CornerRightUp class="h-12 w-12" />
+    </div>
 
     <div v-else class="grid grid-cols-1 gap-4">
       <div
