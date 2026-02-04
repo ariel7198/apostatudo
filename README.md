@@ -32,7 +32,7 @@ A solução contém:
 
 ### Frontend
 - Nuxt 3
-- Vue 3 (Composition API)
+- Vue 3
 - TypeScript
 - Tailwind CSS
 - Lucide Icons
@@ -75,7 +75,7 @@ A navegação utiliza páginas e modais, com feedback visual e estados de carreg
 
 ---
 
-## Como rodar o projeto
+## Como rodar o projeto localmente
 
 ### Pré-requisitos
 - Node.js 20 ou superior
