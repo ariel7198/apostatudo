@@ -88,6 +88,35 @@ Acesse a pasta do backend:
 cd backend
 ```
 
+Instale as dependências:
+```
+npm install
+```
+
+Gere o client do Prisma:
+```
+npx prisma generate
+```
+
+Execute as migrações para criar as tabelas no banco:
+```
+npx prisma migrate deploy
+```
+
+(Opcional) Popular o banco com dados iniciais:
+```
+npx prisma db seed
+```
+
+Inicie o servidor:
+```
+npm run dev
+```
+
+A API ficará disponível em:
+```
+http://localhost:3333/api
+```
 ## Deploy
 
 ### Backend
