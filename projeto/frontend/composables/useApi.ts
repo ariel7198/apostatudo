@@ -1,5 +1,5 @@
 export const useApi = () => {
-  const baseUrl = "http://localhost:3333/api";
+  const baseUrl = "https://apostatudo-production.up.railway.app/api";
 
   const get = async <T>(url: string): Promise<T> => {
     const res = await fetch(`${baseUrl}${url}`);
