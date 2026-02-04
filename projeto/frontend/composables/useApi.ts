@@ -1,5 +1,10 @@
 export const useApi = () => {
-  const baseUrl = "https://apostatudo-production.up.railway.app/api";
+
+  const config = useRuntimeConfig();
+  const baseUrl = config.public.apiBaseUrl;
+
+
+  // const baseUrl = "https://apostatudo-production.up.railway.app/api";
 
   const get = async <T>(url: string): Promise<T> => {
     const res = await fetch(`${baseUrl}${url}`);
