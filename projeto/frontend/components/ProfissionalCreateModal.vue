@@ -86,7 +86,7 @@ const salvar = async () => {
         placeholder="Nome"
         required
       />
-      <label class="block font-medium">Sexo*</label>
+      <label class="block">Sexo*</label>
       <select
         v-model="form.sexo"
         class="w-full border rounded px-3 py-2"
@@ -96,7 +96,7 @@ const salvar = async () => {
         <option value="F">Feminino</option>
       </select>
 
-      <label class="block font-medium">Data de Nascimento*</label>
+      <label class="block">Data de Nascimento*</label>
       <input
         v-model="form.data_nascimento"
         type="date"
@@ -112,7 +112,7 @@ const salvar = async () => {
         required
       />
 
-      <label class="block font-medium">Nível*</label>
+      <label class="block">Nível*</label>
       <select
         v-model="form.nivelId"
         class="w-full border rounded px-3 py-2"
@@ -134,7 +134,7 @@ const salvar = async () => {
         :disabled="loading"
         @click="salvar"
       >
-        Salvar
+        {{  loading ? 'Salvando...' : 'Salvar' }}
       </button>
     </template>
   </BaseModal>

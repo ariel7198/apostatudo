@@ -58,7 +58,7 @@ const salvar = async () => {
 
     <template #actions>
       <button
-        class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+        class="px-4 py-2 rounded bg-emerald-600 text-white hover:bg-emerald-700"
         @click="salvar"
       >
         Salvar

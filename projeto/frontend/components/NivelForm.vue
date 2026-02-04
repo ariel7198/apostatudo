@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useNiveis } from "@/composables/useNiveis";
+import { Plus } from "lucide-vue-next";
 
 const emit = defineEmits<{
   (e: "created"): void;
@@ -55,10 +56,11 @@ const submit = async () => {
       </p>
 
       <button
-        class="bg-emerald-600 text-white px-4 py-2 rounded disabled:opacity-50"
+        class="flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded disabled:opacity-50"
         :disabled="loading"
       >
-        Adicionar
+        <Plus class="h-4 w-4" />
+        Cadastrar
       </button>
     </div>
   </form>

@@ -34,7 +34,10 @@ watch(
 
 const { updateProfissional } = useProfissionais();
 
+const loading = ref(false);
+
 const update = async () => {
+  loading.value = true;
   await updateProfissional(props.profissional!.id, {
     nome: form.nome,
     sexo: form.sexo,
@@ -44,6 +47,7 @@ const update = async () => {
 
   emit("saved");
   emit("update:modelValue", false);
+  loading.value = false;
 };
 </script>
 
@@ -55,37 +59,48 @@ const update = async () => {
     <h2 class="text-xl font-bold mb-4">Editar profissional</h2>
 
     <div class="space-y-3">
+      <label class="block">Nome*</label>
       <input
         v-model="form.nome"
         class="w-full border rounded px-3 py-2"
         placeholder="Nome"
+        required
       />
-
-      <input
+      <label class="block">Sexo*</label>
+      <select
         v-model="form.sexo"
         class="w-full border rounded px-3 py-2"
-        placeholder="Sexo"
-      />
+        required
+      >
+        <option value="M">Masculino</option>
+        <option value="F">Feminino</option>
+      </select>
 
-      <input
-        v-model="form.hobby"
-        class="w-full border rounded px-3 py-2"
-        placeholder="Hobby"
-      />
-
+      <label class="block">Data de Nascimento*</label>
       <input
         v-model="form.data_nascimento"
         type="date"
         class="w-full border rounded px-3 py-2"
+        required
       />
+
+      <label class="block">Hobby*</label>
+      <input
+        v-model="form.hobby"
+        class="w-full border rounded px-3 py-2"
+        placeholder="Hobby"
+        required
+      />
+
     </div>
 
     <template #actions>
       <button
-        class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+        class="px-4 py-2 rounded bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-50"
+        :disabled="loading"
         @click="update"
       >
-        Salvar
+       {{  loading ? 'Salvando...' : 'Salvar' }}
       </button>
     </template>
   </BaseModal>
