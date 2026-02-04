@@ -4,6 +4,10 @@ Este projeto foi desenvolvido como resposta a um **desafio técnico**, com foco 
 
 A aplicação entrega uma solução completa **fullstack**, composta por backend com API REST e frontend em formato SPA, seguindo boas práticas de desenvolvimento.
 
+Você pode conferir o projeto no ar no seguinte endereço 
+
+[apostatudo.vercel.app] (apostatudo.vercel.app)
+
 ---
 
 ## Contexto
